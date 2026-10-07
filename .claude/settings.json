@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvidia-smi:*)",
+      "Bash(claude --version)",
+      "Bash(py -3 --version)",
+      "Bash(py -3 lib/plan-config.py)",
+      "Bash(py -3 lib/download.py --list)"
+    ]
+  }
+}

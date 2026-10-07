@@ -1,0 +1,4 @@
+# Store every file byte-for-byte: no line-ending conversion on add or checkout.
+# The .bat/.cmd files must stay CRLF (cmd misparses LF batch files), and the patched Qwen
+# chat template must render byte-identically.
+* -text

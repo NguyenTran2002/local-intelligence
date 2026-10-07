@@ -1,0 +1,155 @@
+{
+  "_comment": "Single source of truth for versions, downloads, GPU tiers and VRAM sizing. Read by lib/*.py, claude-local.cmd and the onboard skill. All VRAM figures are MiB.",
+
+  "tested": {
+    "claude_code": "2.1.285",
+    "claude_code_channel": "stable",
+    "llama_cpp": "b11065",
+    "llama_cpp_commit": "ce8caa6e6",
+    "reference_gpu": "NVIDIA GeForce RTX 5090 (32 GB, 1,792 GB/s), Windows 11, nothing else on the GPU",
+    "date": "2026-10-07"
+  },
+
+  "thresholds": {
+    "_comment": "Local hosting is recommended only if BOTH hold: at least the 16 GB class of VRAM (a 16 GB card reports ~15.8-16.3 GB) and at least half of the reference GPU's memory bandwidth. Below either, recommend OpenRouter.",
+    "min_vram_mib": 15500,
+    "min_bandwidth_gbs": 896,
+    "min_driver_major": 580,
+    "min_compute_capability": "7.5",
+    "claude_code_min_ctx": 65536,
+    "min_offered_ctx": 32768
+  },
+
+  "openrouter": {
+    "base_url": "https://openrouter.ai/api",
+    "model": "qwen/qwen3.8-27b",
+    "context": 262144,
+    "docs": "https://openrouter.ai/docs/guides/guides/claude-code-integration",
+    "notes": [
+      "OpenRouter only guarantees Claude Code with Anthropic's own models; Qwen through it is NOT tested by this project.",
+      "Providers differ: at the time of writing Cerebras served this model with 65,536 context and no tool calling - exclude it in OpenRouter's provider settings.",
+      "Prices change; check https://openrouter.ai/qwen/qwen3.8-27b before relying on any figure."
+    ]
+  },
+
+  "downloads": {
+    "llamacpp": {
+      "dir": "llamacpp/zips",
+      "extract_to": "llamacpp/bin",
+      "files": [
+        {"name": "llama-b11065-bin-win-cpu-x64.zip", "size": 18466663,
+         "sha256": "33f941a74b8db38e92690f5f151a770ef5a66481c07dabfe2e505b57e3546807",
+         "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11065/llama-b11065-bin-win-cpu-x64.zip"},
+        {"name": "llama-b11065-bin-win-cuda-13.4-x64.zip", "size": 150010941,
+         "sha256": "176205644c4c3fd0b5f5b5a70a2ae284e0292aa6dc24a346b3cf31f389ec9027",
+         "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11065/llama-b11065-bin-win-cuda-13.4-x64.zip"},
+        {"name": "cudart-llama-bin-win-cuda-13.4-x64.zip", "size": 423535356,
+         "sha256": "738f8c251ac22b70c3ae6f83a10cf222725df0395246a2cf58f32bdb85fbe668",
+         "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11065/cudart-llama-bin-win-cuda-13.4-x64.zip"}
+      ]
+    },
+    "gemma-31b": {
+      "dir": "models/gemma-4-31B-it-qat",
+      "repo": "unsloth/gemma-4-31B-it-qat-GGUF",
+      "revision": "43cc1aeb31adf47ec06a854507ce552cd9862e6f",
+      "files": [
+        {"name": "gemma-4-31B-it-qat-UD-Q4_K_XL.gguf", "size": 17287670048,
+         "sha256": "00b5a7c497f0c8934033088c10a7fa9a4c015e46ee6d89e9c6890650ba5d0e71"},
+        {"name": "mmproj-F16.gguf", "size": 1198957024,
+         "sha256": "4775e1bf6ef6f8df94caed2d672c74432f0722565e5225a170c72949ebe4cf23"},
+        {"name": "mtp-gemma-4-31B-it.gguf", "size": 279955968,
+         "sha256": "3a5e99fd8d0b23afb1fccd1ee0c9ebd1f571d00399c2dae2292d217feeec0f6b"}
+      ]
+    },
+    "gemma-26b": {
+      "dir": "models/unsloth-26B-A4B-qat",
+      "repo": "unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+      "revision": "7b92b5b28818151e8669af2e45e88d6086f490dd",
+      "files": [
+        {"name": "gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf", "size": 14249047104,
+         "sha256": "a7c5bc715f5ff8e99a3e8901ce7d2b42b402c669bf24f7c5250747633d0f5891"},
+        {"name": "mmproj-F16.gguf", "size": 1193058784,
+         "sha256": "d00f211a7d4f7fb19bd9b75d8e9342eccffb5920b08fd9562167560fdfcc5dd1"},
+        {"name": "mtp-gemma-4-26B-A4B-it.gguf", "size": 251939328,
+         "sha256": "7272d97595f0d4c74bd7b623492b7dbdaafd8b7c72f329a8270ba4eca68f768a"}
+      ]
+    },
+    "qwen-q4": {
+      "dir": "models/qwen3.8-27B",
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+      "files": [
+        {"name": "Qwen3.8-27B-UD-Q4_K_XL.gguf", "size": 17559178144,
+         "sha256": "3f227079003add2511437e5b1e94812e363385225bf6a9b47b0054a72bc8b01e"},
+        {"name": "mmproj-F16.gguf", "size": 927607488,
+         "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e"}
+      ]
+    },
+    "qwen-q3": {
+      "_comment": "UNTESTED by this project: the 3-bit file for 16 GB cards. Same repo and revision as qwen-q4.",
+      "dir": "models/qwen3.8-27B",
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+      "files": [
+        {"name": "Qwen3.8-27B-UD-IQ3_XXS.gguf", "size": 10934860704,
+         "sha256": "c0b7c3038681ed2e3040456c1dd45f9858b6c2290bed172c70388a94874f3eee"},
+        {"name": "mmproj-F16.gguf", "size": 927607488,
+         "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e"}
+      ]
+    }
+  },
+
+  "uncensored_build": {
+    "_comment": "Not downloaded: built from the gemma-31b model file by models/gemma-4-31B-it-qat-heretic/build-heretic-gguf.py (needs Python 3.9+, numpy, curl; range-fetches ~2.73 GB from Hugging Face).",
+    "requires": "gemma-31b",
+    "output": "models/gemma-4-31B-it-qat-heretic/gemma-4-31B-it-qat-heretic-Q4_0-attnQ8_0.gguf",
+    "size": 17970293536,
+    "sha256": "05d2e0f8b5ef5ae4b852bdd8ca1504bd276252b958d0bbb3bf6c55022aae8915",
+    "min_tier": "32gb"
+  },
+
+  "gpus": {
+    "_comment": "Memory bandwidth in GB/s from vendor spec sheets. Matched by substring against nvidia-smi's name, longest match first. Unknown GPU: look the spec up and pass --bandwidth to lib/plan-config.py.",
+    "RTX PRO 6000": 1792,
+    "RTX 5090": 1792,
+    "RTX 5080": 960,
+    "RTX 5070 Ti": 896,
+    "RTX 5070": 672,
+    "RTX 5060 Ti": 448,
+    "RTX 4090": 1008,
+    "RTX 4080 SUPER": 736,
+    "RTX 4080": 717,
+    "RTX 4070 Ti SUPER": 672,
+    "RTX 4070 Ti": 504,
+    "RTX 4070": 504,
+    "RTX 4060 Ti": 288,
+    "RTX 3090 Ti": 1008,
+    "RTX 3090": 936,
+    "RTX 3080 Ti": 912,
+    "RTX 3080": 760,
+    "RTX 6000 Ada": 960,
+    "RTX A6000": 768
+  },
+
+  "sizing": {
+    "_comment": "ctx = (total - unusable - desktop_in_use - fixed - margin) / slope_per_1k * 1024, floored to a multiple of 4096 and capped at the model maximum. 'fixed' already includes the one-time growth from a max-size image. Only the reference GPU's shipped contexts were measured; every computed context is an ESTIMATE until lib/fit-test.py passes on the user's GPU.",
+    "unusable_mib": 429,
+    "margin_untested_mib": 512,
+    "round_to": 4096,
+    "qwen_encoder_mib": {"1600": 206, "2048": 222, "4096": 528},
+    "profiles": {
+      "CTX_D_STD":   {"model": "gemma-31b",  "fixed": 21422, "slope": 54.5, "max": 262144, "measured_5090": 200704},
+      "CTX_D_TURBO": {"model": "gemma-31b",  "fixed": 22037, "slope": 66.5, "max": 262144, "measured_5090": 153600},
+      "CTX_H_STD":   {"model": "uncensored", "fixed": 22074, "slope": 54.5, "max": 262144, "measured_5090": 188416},
+      "CTX_H_TURBO": {"model": "uncensored", "fixed": 22690, "slope": 66.5, "max": 262144, "measured_5090": 144384},
+      "CTX_M":       {"model": "gemma-26b",  "fixed": 20968, "slope": 13.6, "max": 262144, "measured_5090": 262144,
+                      "_comment": "slope estimated from the KV size (10,880 B/token) scaled like the 31B; never measured between configurations"},
+      "CTX_Q_STD":   {"model": "qwen-q4",    "fixed": 18610, "slope": 41.6, "max": 262144, "measured_5090": 262144,
+                      "_comment": "fixed at a 4,096-token image cap"},
+      "CTX_Q_TURBO": {"model": "qwen-q4",    "fixed": 20066, "slope": 50.0, "max": 262144, "measured_5090": 245760,
+                      "_comment": "fixed at a 4,096-token image cap; MTP head built into the Q4 file"},
+      "CTX_Q3_STD":  {"model": "qwen-q3",    "fixed": 12292, "slope": 41.6, "max": 262144, "measured_5090": null,
+                      "_comment": "UNTESTED: Q4 figure minus the 6,318 MiB smaller weights, at a 4,096-token image cap"}
+    }
+  }
+}

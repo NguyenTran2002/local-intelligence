@@ -1,0 +1,23 @@
+# secrets - created on your machine, never committed
+api-key.txt
+openrouter-key.txt
+CONNECT-mine.md
+
+# this machine's configuration (written by onboarding)
+config/
+
+# large binaries and runtime output
+models/**/*.gguf
+models/**/*.ok
+models/**/*.partial
+models/**/*.progress.json
+llamacpp/bin/
+llamacpp/zips/
+logs/
+
+# temp / caches
+__pycache__/
+*.pyc
+*.zdrtmp
+*.tmp
+hw.json
